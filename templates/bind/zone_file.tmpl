@@ -1,0 +1,15 @@
+; Zone file for $domain.fqdn
+\$TTL 14400
+$domain.fqdn   86400   IN      SOA     $domain.ns1      $domain.email     (
+                                                $domain.serial ;Serial Number
+                                                86400 ;refresh
+                                                7200 ;retry
+                                                3600000 ;expire
+                                                86400 ;minimum
+        )
+
+$domain.fqdn   86400   IN      NS      $domain.ns1
+$domain.fqdn   86400   IN      NS      $domain.ns2
+#for $record in $records
+$record.host    $record.ttl     IN      $record.type    $record.host
+#end for
