@@ -2,4 +2,4 @@
 CWD=`pwd`
 git clone git://github.com/Pedlar/pypanel-httpd.git $CWD/../libs/httpd
 git clone git://github.com/Pedlar/pypanel-cheetah.git $CWD/../libs/cheetah
-git clone git://github.com/Pedlar/pypanel-cherrypy.git $CWD/../libs/cherrypy
+git clone git://github.com/Pedlar/pypanel-bottle.git $CWD/../libs/bottle
