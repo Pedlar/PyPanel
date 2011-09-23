@@ -6,16 +6,19 @@ if cmd_folder not in sys.path:
      sys.path.insert(0, cmd_folder)
 
 #Import Bottle, our main web server functionality
-from bottle import route, run, debug, request, error
+from bottle import route, run, debug, request, error, static_file, post
+from bottle import cheetah_view as view, cheetah_template as template
 
 #Import Modules
+from modules.config import *
 from modules.save_zone import *
 
 #Main handler functions.
 #runSaveZone(request)
 #Saves the zone files from the form
-def runSaveZone():
-    result = saveZone("madisonk.org", "madisonk.org", "madisonk.org", "madisonk.org", "madisonk.org", "madisonk.org")
+def runSaveZone(request):
+#    result = saveZone("madisonk.org", "madisonk.org", "madisonk.org", "madisonk.org", "madisonk.org", "madisonk.org")
+    result = request.forms.getall('username')
     if result is None:
         return "Fail fail fail"
     else:
@@ -23,14 +26,22 @@ def runSaveZone():
 
 @route('/')
 def indexPage():
-    return "Hello!"
+    return "INDEX!"
 
-@route('/cgi-scripts/:request')
-def handleCgiScripts(request):
+@route('/login')
+def loginForm():
+    return static_file('login.html', getWebTmpl('static/')) 
+
+@post('/login')
+def loginProcess():
+    return "<p>Login, what's that?</p>"
+
+@post('/cgi-scripts/:page')
+def handleCgiScripts(page):
     handler = {
                 "savezone": runSaveZone,
               }
-    return handler.get(request, mistake404)()
+    return handler.get(page, mistake404)(request)
 
 #Error Messages
 
